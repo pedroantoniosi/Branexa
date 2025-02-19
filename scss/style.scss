@@ -1,0 +1,331 @@
+@import './reset/reset.css';
+
+$primaryColor: #5F28FC;
+$secondaryColor: #0c001f;
+$accent: #E4E6FD;
+$light: #fff;
+$dark: #17171C;
+
+
+@font-face {
+    font-family: 'confortaa';
+    src: url('/assets/fonts/Comfortaa-Bold.ttf') format('truetype'),
+        url('/assets/fonts/Comfortaa-Light.ttf') format('truetype'),
+        url('/assets/fonts/Comfortaa-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin pseudo-before() {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: ' ';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        z-index: -2;
+    }
+}
+
+@mixin pseudo-after() {
+    position: relative;
+    z-index: -1;
+
+    &::after {
+        content: ' ';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+}
+
+.container {
+    display: flex;
+    gap: 4rem;
+    max-width: 1380px;
+    width: calc(100% - 4rem);
+    margin: 0 auto;
+}
+
+
+.title {
+    font-family: 'confortaa', sans-serif;
+    & *{
+        font-family: 'confortaa', sans-serif;
+    }
+}
+
+.text {
+    font-family: "Roboto", serif;
+}
+
+@mixin btn-effect{
+    position: relative;
+    z-index: 1;
+    &:hover {
+        color: $light;
+    }
+
+    &::before {
+        content: ' ';
+        position: absolute;
+        width: 100%;
+        height: 0;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        transition: all .1s linear;
+    }
+
+    &:hover::before {
+        height: 100%;
+        background-color: $dark;
+    }
+}
+
+@mixin btn-primary{
+    background-color: $primaryColor;
+    color: $light;
+}
+
+.btn {
+    cursor: pointer;
+    position: relative;
+    max-width: 12rem;
+    width: 100%;
+    padding: 1rem;
+    font-family: "Roboto", serif;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: .4rem;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .2s linear;
+    text-align: center;
+}
+
+.btn-primary {
+    @include btn-primary();
+    @include btn-effect();
+}
+
+.btn-primary-nohover{
+    @include btn-primary();
+}
+
+.btn-secondary {
+    background-color: $light;
+    color: $dark;
+    @include btn-effect();
+}
+
+.left-col{
+    max-width: 300px;
+    width: 100%;
+        & .title{
+            font-size: 3rem;
+        }
+    }
+
+
+
+
+.hero-container {
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    @include pseudo-before();
+    height: 100svh;
+    & .caption {
+        & .title {
+            max-width: 768px;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 150%;
+            & span{
+                color: $primaryColor;
+            }
+        }
+
+        & .text {
+            max-width: 700px;
+            font-size: 1.1rem;
+        }
+    }
+    &::before{
+        background-image: url('/assets/img/hero.png');
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+}
+
+.features-container {
+    background-color: $secondaryColor;
+    color: $light;
+    & .wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 300px 300px;
+        flex: 1;
+        gap: .2rem;
+        background-color: $light;
+        & .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 4rem;
+            padding: 2rem;
+            background-color: $secondaryColor;
+            & .ico{
+                font-size: 1.5rem;
+            }
+            &:hover {
+                background: rgba(205, 205, 205, 0.5);
+                box-shadow: 0 6px 26px 0 rgba(31, 135, 95, 0.238);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                color: $dark;
+            }
+        }
+    }
+}
+
+.conections-container{
+    & .card{
+        padding: 2rem;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        border-radius: 1rem;
+        & .ico{
+            padding: 2rem;
+            font-size: 6rem;
+            background-color: #e9ecef;
+            border-radius: .6rem;
+        }
+        & .caption{
+            & .title{
+                font-weight: bold;
+                font-size: 2rem;
+            }
+            & .btn{
+                background-color: $primaryColor;
+                color: $light;
+            }
+        }
+    }
+}
+
+.care-container{
+    & .wrapper{
+        & .title{
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        & .text{
+            cursor: pointer;
+            padding: 2rem 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid $accent;
+            opacity: .5;
+            &.active{
+                border-bottom: 1px solid $dark;
+                opacity: 1;
+                & strong{
+                    color: $primaryColor;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+.trial-container{
+    & .wrapper{
+        width: 100%;
+        background-color: $primaryColor;
+        color: $light;
+        border-radius: .6rem;
+        & .title{
+            max-width: 500px;
+            font-size: 2.5rem;
+            line-height: 150%;
+            & span{
+                font-size: 4rem;
+                color: transparent;
+                -webkit-text-stroke: 2px $light;
+            }
+        }
+    }
+}
+
+
+.form-container{
+    color:$light;
+    background-color: $secondaryColor;
+    & .left-col{
+        & .text{
+            font-size: 1.2rem;
+        }
+    }
+    & .wrapper{
+        max-width: 20rem;
+        width: 100%;
+        color: $dark;
+        & .form-btn{
+            max-width: 12rem;
+            width: 100%;
+            cursor: pointer;
+            padding: 1rem;
+            color: $dark;
+            border-radius: 0;
+            border: 1px solid $dark;
+            $border-radius: .6rem;
+            transition: all .1s linear;
+            &.btn-retailer{
+                border-right: none;
+                border-radius: $border-radius 0 0 $border-radius;
+            }
+            &.btn-brand{
+                border-left: none;
+                border-radius: 0 $border-radius $border-radius 0;
+            }
+            &.active{
+             background-color: $primaryColor;  
+             border: 1px solid transparent;
+             color: $light;
+            }
+        }
+        & .form-field{
+            display: none;
+            &.active{
+                background-color: red;
+                color: $light;
+            }
+        }
+        & input{
+            max-width: 25rem;
+            width: 100%;
+            padding: .5rem;
+            -webkit-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.4);
+            -moz-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.4);
+            box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.4);
+        }
+        & .btn{
+            background-color: $primaryColor;
+            color: $light;
+        }
+    }
+}
+
+.testimonial-container{
+    background-color: #1F1F2B;
+}
